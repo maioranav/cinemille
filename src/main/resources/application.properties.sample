@@ -1,0 +1,19 @@
+##DB Configuration
+spring.application.name=cinemille
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/DBNAME
+spring.datasource.username=DBUSER
+spring.datasource.password=DBPASSWORD
+spring.jpa.hibernate.ddl-auto=update
+
+
+##JWT Secret
+app.jwt-secret=YOURSUPERSECRET256BITKEY
+app.jwt-expiration-milliseconds=360000000
+
+##Admin Configuration
+user.admin.name=First Name
+user.admin.surname=Last Name
+user.admin.email=youremail@example.com
+user.admin.username=adminuser
+user.admin.password=adminpassword
