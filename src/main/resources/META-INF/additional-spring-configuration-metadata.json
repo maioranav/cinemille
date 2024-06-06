@@ -1,0 +1,39 @@
+{
+  "properties": [
+    {
+      "name": "app.jwt-secret",
+      "type": "java.lang.String",
+      "description": "A description for 'app.jwt-secret'"
+    },
+    {
+      "name": "app.jwt-expiration-milliseconds",
+      "type": "java.lang.String",
+      "description": "A description for 'app.jwt-expiration-milliseconds'"
+    },
+    {
+      "name": "user.admin.name",
+      "type": "java.lang.String",
+      "description": "A description for 'user.admin.name'"
+    },
+    {
+      "name": "user.admin.surname",
+      "type": "java.lang.String",
+      "description": "A description for 'user.admin.surname'"
+    },
+    {
+      "name": "user.admin.email",
+      "type": "java.lang.String",
+      "description": "A description for 'user.admin.email'"
+    },
+    {
+      "name": "user.admin.username",
+      "type": "java.lang.String",
+      "description": "A description for 'user.admin.username'"
+    },
+    {
+      "name": "user.admin.password",
+      "type": "java.lang.String",
+      "description": "A description for 'user.admin.password'"
+    }
+  ]
+}
