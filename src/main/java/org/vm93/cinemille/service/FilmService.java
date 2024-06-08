@@ -68,15 +68,16 @@ public class FilmService {
 		return film.get();
 	}
 
-	public Film findOrCreateFilm(String isbn, String title, LocalDate releaseDate) {
+	public Film findOrCreateFilm(String isbn, String title, LocalDate releaseDate, String image) {
 		Optional<Film> optionalFilm = repo.findByISBN(isbn);
 		Film film;
 		if (optionalFilm.isPresent()) {
 			film = optionalFilm.get();
 			film.setTitle(title);
 			film.setReleaseDate(releaseDate);
+			film.setImage(image);
 		} else {
-			film = Film.builder().ISBN(isbn).title(title).releaseDate(releaseDate).build();
+			film = Film.builder().ISBN(isbn).title(title).releaseDate(releaseDate).image(image).build();
 		}
 		return repo.save(film);
 	}
@@ -89,8 +90,9 @@ public class FilmService {
 					continue; // Skip header row
 				String isbn = row.getCell(0).getStringCellValue();
 				String title = row.getCell(1).getStringCellValue();
-				LocalDate releaseDate = LocalDate.from(row.getCell(2).getLocalDateTimeCellValue());
-				findOrCreateFilm(isbn, title, releaseDate);
+				String image = row.getCell(2).getStringCellValue();
+				LocalDate releaseDate = LocalDate.from(row.getCell(4).getLocalDateTimeCellValue());
+				findOrCreateFilm(isbn, title, releaseDate, image);
 			}
 		}
 	}

@@ -21,6 +21,8 @@ import org.vm93.cinemille.model.Film;
 import org.vm93.cinemille.model.Schedule;
 import org.vm93.cinemille.repo.ScheduleRepo;
 
+import jakarta.persistence.EntityExistsException;
+
 @Service
 public class ScheduleService {
 
@@ -101,32 +103,34 @@ public class ScheduleService {
 
                 String isbn = row.getCell(0).getStringCellValue();
                 String titolo = row.getCell(1).getStringCellValue();
-                int salaName = (int) row.getCell(2).getNumericCellValue();
-                LocalDate startDate = LocalDate.from(row.getCell(3).getLocalDateTimeCellValue());
-                LocalDate endDate = LocalDate.from(row.getCell(4).getLocalDateTimeCellValue());
+                String image = row.getCell(2).getStringCellValue();
+                int salaName = (int) row.getCell(3).getNumericCellValue();
+                LocalDate startDate = LocalDate.from(row.getCell(4).getLocalDateTimeCellValue());
+                LocalDate endDate = LocalDate.from(row.getCell(5).getLocalDateTimeCellValue());
 
-                Film film = filmService.findOrCreateFilm(isbn, titolo, LocalDate.now());
+                Film film = filmService.findOrCreateFilm(isbn, titolo, LocalDate.now(), image);
                 Cinema cinema = cinemaService.findByCinemaNo(salaName);
 
                 if (!cinemaService.isAvailable(cinema, startDate, endDate)) {
-                    throw new IllegalStateException("Cinema is not available for this Date range.");
+                    throw new EntityExistsException("Cinema is not available for this Date range.");
                 }
 
                 Schedule schedule = Schedule.builder().cinema(cinema).film(film).startDate(startDate).endDate(endDate).build();
                 scheduleRepo.save(schedule);
             }
-        }
+        } 
     }
 
-    public ByteArrayInputStream esportaScheduleInExcel() throws IOException {
+    public ByteArrayInputStream exportXLSX() throws IOException {
         try (Workbook workbook = new XSSFWorkbook()) {
             Sheet sheet = workbook.createSheet("Schedule");
             Row header = sheet.createRow(0);
             header.createCell(0).setCellValue("ISBN");
             header.createCell(1).setCellValue("Title");
-            header.createCell(2).setCellValue("Cinema");
-            header.createCell(3).setCellValue("Start Date");
-            header.createCell(4).setCellValue("End Date");
+            header.createCell(2).setCellValue("Image");
+            header.createCell(3).setCellValue("Cinema");
+            header.createCell(4).setCellValue("Start Date");
+            header.createCell(5).setCellValue("End Date");
 
             List<Schedule> schedules = scheduleRepo.findAll();
             int rowIdx = 1;
@@ -134,11 +138,12 @@ public class ScheduleService {
                 Row row = sheet.createRow(rowIdx++);
                 row.createCell(0).setCellValue(schedule.getFilm().getISBN());
                 row.createCell(1).setCellValue(schedule.getFilm().getTitle());
-                row.createCell(2).setCellValue(schedule.getCinema().getCinemaNo());
-                Cell startDateCell = row.createCell(3);
+                row.createCell(2).setCellValue(schedule.getFilm().getImage());
+                row.createCell(3).setCellValue(schedule.getCinema().getCinemaNo());
+                Cell startDateCell = row.createCell(4);
                 startDateCell.setCellValue(schedule.getStartDate());
                 startDateCell.setCellStyle(createDateCellStyle(workbook));
-                Cell endDateCell = row.createCell(4);
+                Cell endDateCell = row.createCell(5);
                 endDateCell.setCellValue(schedule.getEndDate());
                 endDateCell.setCellStyle(createDateCellStyle(workbook));
             }
