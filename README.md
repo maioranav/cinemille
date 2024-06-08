@@ -6,7 +6,7 @@ Multiplex CMS RestAPI Java Spring-Boot based
 
 Configure the application.properties file with the relevant customized data (administrator data, database connection data).
 
-Then, make a GET request to the endpoint https://hostname:port/api/auth/firstboot.
+Then, make a GET request to the endpoint http://hostname:port/api/auth/firstboot.
 
 
 ## ENDPOINTs
