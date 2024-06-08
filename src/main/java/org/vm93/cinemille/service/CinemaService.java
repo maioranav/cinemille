@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.vm93.cinemille.model.Cinema;
-import org.vm93.cinemille.model.Film;
 import org.vm93.cinemille.repo.CinemaRepo;
 import org.vm93.cinemille.repo.ScheduleRepo;
 
