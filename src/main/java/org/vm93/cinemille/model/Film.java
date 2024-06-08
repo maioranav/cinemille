@@ -27,7 +27,7 @@ public class Film {
 	private UUID id;
 
 	@Column(nullable = false, unique = true)
-	private String ISBN;
+	private long ISBN;
 
 	@Column(nullable = false)
 	private String title;

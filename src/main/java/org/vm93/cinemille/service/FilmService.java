@@ -50,7 +50,7 @@ public class FilmService {
 		return film.get();
 	}
 
-	public Film findByISBN(String isbn) {
+	public Film findByISBN(Integer isbn) {
 		Optional<Film> film = repo.findByISBN(isbn);
 		if (!film.isPresent())
 			throw new EntityNotFoundException("Film ISBN not found!");
@@ -68,7 +68,7 @@ public class FilmService {
 		return film.get();
 	}
 
-	public Film findOrCreateFilm(String isbn, String title, LocalDate releaseDate, String image) {
+	public Film findOrCreateFilm(long isbn, String title, LocalDate releaseDate, String image) {
 		Optional<Film> optionalFilm = repo.findByISBN(isbn);
 		Film film;
 		if (optionalFilm.isPresent()) {
@@ -88,7 +88,7 @@ public class FilmService {
 			for (Row row : sheet) {
 				if (row.getRowNum() == 0)
 					continue; // Skip header row
-				String isbn = row.getCell(0).getStringCellValue();
+				long isbn = (long) row.getCell(0).getNumericCellValue();
 				String title = row.getCell(1).getStringCellValue();
 				String image = row.getCell(2).getStringCellValue();
 				LocalDate releaseDate = LocalDate.from(row.getCell(4).getLocalDateTimeCellValue());

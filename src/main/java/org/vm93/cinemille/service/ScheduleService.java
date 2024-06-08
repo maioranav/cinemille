@@ -101,14 +101,14 @@ public class ScheduleService {
             for (Row row : sheet) {
                 if (row.getRowNum() == 0) continue; // Skip header row
 
-                String isbn = row.getCell(0).getStringCellValue();
+                long isbn = (long) row.getCell(0).getNumericCellValue();
                 String titolo = row.getCell(1).getStringCellValue();
                 String image = row.getCell(2).getStringCellValue();
-                int salaName = (int) row.getCell(3).getNumericCellValue();
+                int salaName = (int)row.getCell(3).getNumericCellValue();
                 LocalDate startDate = LocalDate.from(row.getCell(4).getLocalDateTimeCellValue());
                 LocalDate endDate = LocalDate.from(row.getCell(5).getLocalDateTimeCellValue());
 
-                Film film = filmService.findOrCreateFilm(isbn, titolo, LocalDate.now(), image);
+                Film film = filmService.findOrCreateFilm(isbn, titolo, startDate, image);
                 Cinema cinema = cinemaService.findByCinemaNo(salaName);
 
                 if (!cinemaService.isAvailable(cinema, startDate, endDate)) {

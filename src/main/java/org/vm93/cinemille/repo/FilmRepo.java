@@ -9,6 +9,6 @@ import org.vm93.cinemille.model.Film;
 
 public interface FilmRepo extends PagingAndSortingRepository<Film, UUID>, CrudRepository<Film, UUID> {
 
-	Optional<Film> findByISBN(String ISBN);
+	Optional<Film> findByISBN(long ISBN);
 
 }
