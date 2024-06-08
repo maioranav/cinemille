@@ -1,18 +1,20 @@
 package org.vm93.cinemille.service;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vm93.cinemille.model.Cinema;
-
-import lombok.extern.slf4j.Slf4j;
+import org.vm93.cinemille.repo.ScheduleRepo;
 
 @Service
-@Slf4j
 public class CinemaService {
 
-	public boolean isAvailable(Cinema cinema, Date startDate, Date endDate) {
-		return true;
+	@Autowired
+	private ScheduleRepo scheduleRepo;
+
+	public boolean isAvailable(Cinema cinema, LocalDate startDate, LocalDate endDate) {
+		return scheduleRepo.isScheduleOverlapping(cinema.getCinemaNo(), startDate, endDate).isEmpty();
 	}
 
 }
