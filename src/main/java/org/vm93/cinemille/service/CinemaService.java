@@ -58,7 +58,7 @@ public class CinemaService {
 	}
 	
 	public Page<Cinema> findAll(Pageable pageable){
-		return cinemaRepo.findAll(pageable);
+		return cinemaRepo.findAllByOrderByCinemaNoAsc(pageable);
 	}
 	
 	public Cinema findById(UUID id){

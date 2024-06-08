@@ -58,7 +58,7 @@ public class FilmService {
 	}
 	
 	public Page<Film> findAll(Pageable pageable){
-		return repo.findAll(pageable);
+		return repo.findAllByOrderByReleaseDateDesc(pageable);
 	}
 	
 	public Film findById(UUID id){

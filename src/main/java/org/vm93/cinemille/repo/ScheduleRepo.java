@@ -18,14 +18,16 @@ public interface ScheduleRepo extends JpaRepository<Schedule, UUID> {
 			+ "(s.startDate < :endDate AND s.endDate > :startDate)")
 	List<Schedule> isScheduleOverlapping(@Param(value = "cinemaNo") int cinemaNo,@Param(value = "startDate") LocalDate startDate,@Param(value = "endDate") LocalDate endDate);
 
-	@Query("SELECT s FROM Schedule s WHERE s.cinema.cinemaNo = :cinemaNo AND s.startDate < :endDate AND s.endDate > :startDate")
+	@Query("SELECT s FROM Schedule s WHERE s.cinema.cinemaNo = :cinemaNo AND s.startDate < :endDate AND s.endDate > :startDate ORDER BY s.startDate ASC")
 	Page<Schedule> findByDateRangeAndCinema(@Param(value = "cinemaNo") int cinemaNo,@Param(value = "startDate") LocalDate startDate,@Param(value = "endDate") LocalDate endDate, Pageable pageable);
 
-	@Query("SELECT s FROM Schedule s WHERE s.startDate < :endDate AND s.endDate > :startDate")
+	@Query("SELECT s FROM Schedule s WHERE s.startDate < :endDate AND s.endDate > :startDate ORDER BY s.startDate ASC")
 	Page<Schedule> findByDateRange(@Param(value = "startDate") LocalDate startDate,@Param(value = "endDate") LocalDate endDate, Pageable pageable);
 
 	@Query("SELECT s FROM Schedule s WHERE s.endDate >= CURRENT_DATE")
 	Page<Schedule> findActive(Pageable pageable);
+	
+	Page<Schedule> findAllByOrderByEndDateAsc(Pageable pageable);
 	
 	Page<Schedule> findByCinema(Cinema cinema, Pageable pageable);
 

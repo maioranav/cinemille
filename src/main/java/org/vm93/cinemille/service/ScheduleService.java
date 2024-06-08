@@ -73,7 +73,7 @@ public class ScheduleService {
 	}
 	
 	public Page<Schedule> findAll(Pageable pageable){
-		return scheduleRepo.findAll(pageable);
+		return scheduleRepo.findAllByOrderByEndDateAsc(pageable);
 	}
 
 	public Page<Schedule> getHistorycalFilm(Pageable pageable, LocalDate fromDate, LocalDate toDate) {
