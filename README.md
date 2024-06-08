@@ -15,7 +15,7 @@ The endpoints are all documented using OpenAPI and Swagger.
 
 If you use the path defined in the "application.properties.sample", you can consult them in JSON format\
 by making a GET request to http://hostname:port/api/v1/public/swagger-config or by visiting\
-  https://hostname:port/api/swagger-ui.html in a web browser.
+  http://hostname:port/api/v1/public/swagger.html in a web browser.
 
 ## AUTHENTICATION
 
