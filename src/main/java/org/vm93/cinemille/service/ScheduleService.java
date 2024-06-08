@@ -70,6 +70,10 @@ public class ScheduleService {
 		scheduleRepo.delete(existSchedule.get());
 		return existSchedule.get();
 	}
+	
+	public Page<Schedule> findAll(Pageable pageable){
+		return scheduleRepo.findAll(pageable);
+	}
 
 	public Page<Schedule> getHistorycalFilm(Pageable pageable, LocalDate fromDate, LocalDate toDate) {
 		Page<Schedule> list = scheduleRepo.findByDateRange(fromDate, toDate, pageable);

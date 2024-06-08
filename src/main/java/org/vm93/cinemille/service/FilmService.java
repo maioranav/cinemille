@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.vm93.cinemille.model.Cinema;
 import org.vm93.cinemille.model.Film;
 import org.vm93.cinemille.repo.FilmRepo;
 
@@ -61,6 +62,13 @@ public class FilmService {
 	
 	public Page<Film> findAll(Pageable pageable){
 		return repo.findAll(pageable);
+	}
+	
+	public Film findById(UUID id){
+		Optional<Film> film = repo.findById(id);
+		if (!film.isPresent())
+			throw new EntityNotFoundException("Film id not found!");
+		return film.get();
 	}
 
 	public Film findOrCreateFilm(String isbn, String title, LocalDate releaseDate) {
