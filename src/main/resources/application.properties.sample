@@ -17,3 +17,7 @@ user.admin.surname=Last Name
 user.admin.email=youremail@example.com
 user.admin.username=adminuser
 user.admin.password=adminpassword
+
+## SWAGGER PATH
+springdoc.api-docs.path=/api/v1/public/swagger-config
+springdoc.swagger-ui.path=/api/v1/public/swagger.html
