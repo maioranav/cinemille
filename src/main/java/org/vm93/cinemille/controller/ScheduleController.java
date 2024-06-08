@@ -2,13 +2,11 @@ package org.vm93.cinemille.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.vm93.cinemille.payload.DateRangeDTO;
 import org.vm93.cinemille.service.ScheduleService;
 
-import jakarta.persistence.EntityExistsException;
 import jakarta.websocket.server.PathParam;
 
 @CrossOrigin(origins = "*", maxAge = 360000)

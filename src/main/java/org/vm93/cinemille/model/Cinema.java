@@ -1,6 +1,5 @@
 package org.vm93.cinemille.model;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
 import org.vm93.cinemille.enumerator.CinemaTech;
