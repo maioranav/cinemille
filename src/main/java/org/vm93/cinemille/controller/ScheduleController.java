@@ -2,6 +2,7 @@ package org.vm93.cinemille.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.vm93.cinemille.payload.DateRangeDTO;
 import org.vm93.cinemille.service.ScheduleService;
 
 import jakarta.persistence.EntityExistsException;
@@ -43,6 +46,12 @@ public class ScheduleController {
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<?> getScheduleByID(@PathParam(value = "id") UUID id) {
 		return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+	}
+	
+	@PostMapping("/range")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> getScheduleByDateRance(Pageable pageable, @RequestBody DateRangeDTO dateRange){
+		return new ResponseEntity<>(service.getHistorycalFilm(pageable, dateRange.getDateFrom(), dateRange.getDateTo()), HttpStatus.OK);
 	}
 	
 	@GetMapping("/active")
