@@ -3,7 +3,6 @@ package org.vm93.cinemille.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJacksonValue;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +19,6 @@ import org.vm93.cinemille.payload.LoginDTO;
 import org.vm93.cinemille.repo.UserRepo;
 import org.vm93.cinemille.service.AdminService;
 import org.vm93.cinemille.service.AuthService;
-
-import com.fasterxml.jackson.annotation.JsonView;
-import com.fasterxml.jackson.databind.ser.FilterProvider;
-import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-
-import lombok.extern.slf4j.Slf4j;
 
 @CrossOrigin(origins = "*", maxAge = 360000)
 @RestController

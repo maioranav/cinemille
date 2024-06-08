@@ -1,27 +1,43 @@
 package org.vm93.cinemille.model;
 
-import java.util.List;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "scheduler")
-@Data @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class Schedule {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
-	
-	@OneToMany
-	private List<Film> filmList;
+
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Film film;
+
+	@Column(nullable = false)
+	private LocalDate startDate;
+
+	@Column(nullable = false)
+	private LocalDate endDate;
+
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Cinema cinema;
+
+	public long getDuration() {
+		 return ChronoUnit.DAYS.between(startDate, endDate);
+	}
 
 }

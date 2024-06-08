@@ -1,40 +1,41 @@
 package org.vm93.cinemille.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "films")
-@Data @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class Film {
-	
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	private UUID id;
-    
-    private String ISBN;
-	
+
+	@Column(nullable = false, unique = true)
+	private String ISBN;
+
+	@Column(nullable = false)
 	private String title;
+
+	@Column(nullable = false)
+	private LocalDate releaseDate;
 	
-	private Date releaseDate;
-	
-	private Date endDate;
-	
-	@ManyToOne
-	private Cinema cinema;
-	
-	public int getDuration() {
-		return 1;
-	}
+	private String image;
 	
 	public Boolean dateValidation() {
 		return true;
