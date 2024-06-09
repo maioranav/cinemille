@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1.0">
+  <zoom_level>4</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>416</x>
+      <y>348</y>
+      <w>252</w>
+      <h>116</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.service::ScheduleService
+--
+-scheduleRepo: ScheduleRepo
+-cinemaService: CinemaService
+-filmService: FilmService
+--
+-validateDuration(Schedule schedule): boolean
++addShow(Schedule schedule): Schedule
++updateShow(Schedule schedule): Schedule
++removeShow(UUID id): Schedule
++findAll(Pageable pageable): Page&lt;Schedule&gt;
++getHistorycalFilm(Pageable pageable, LocalDate fromDate, LocalDate toDate): Page&lt;Schedule&gt;
++getActiveShows(Pageable pageable): Page&lt;Schedule&gt;
++findById(UUID id): Schedule
++importXLSX(MultipartFile file): void
++exportXLSX(): ByteArrayInputStream
+-createDateCellStyle(Workbook workbook): CellStyle
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>184</x>
+      <y>348</y>
+      <w>184</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.service::FilmService
+--
+-repo: FilmRepo
+--
++addFilm(Film film): Film
++updateFilm(UUID id, Film film): Film
++deleteFilm(UUID id): Film
++findByISBN(Integer isbn): Film
++findAll(Pageable pageable): Page&lt;Film&gt;
++findById(UUID id): Film
++findOrCreateFilm(long isbn, String title, LocalDate releaseDate, String image): Film
++importXLSX(MultipartFile file): void
++exportXLSX(): ByteArrayInputStream
+-createDateCellStyle(Workbook workbook): CellStyle
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>740</x>
+      <y>364</y>
+      <w>208</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.service::CinemaService
+--
+-cinemaRepo: CinemaRepo
+-scheduleRepo: ScheduleRepo
+--
++isAvailable(Cinema cinema, LocalDate startDate, LocalDate endDate): boolean
++findByCinemaNo(int cinemaNo): Cinema
++addCinema(Cinema cinema): Cinema
++updateCinema(UUID id, Cinema cinema): Cinema
++deleteCinema(UUID id): Cinema
++findAll(Pageable pageable): Page&lt;Cinema&gt;
++findById(UUID id): Cinema
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>964</x>
+      <y>588</y>
+      <w>224</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.controller::AuthController
+--
+~authService: AuthService
+~userRepo: UserRepo
+~adminService: AdminService
+--
++AuthController(AuthService authService): ctor
++login(@RequestBody LoginDTO loginDto): ResponseEntity&lt;AuthResponse&gt;
++refreshToken(@RequestHeader("Authorization") String headers): ResponseEntity&lt;?&gt;
++firstBoot(): ResponseEntity&lt;?&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>416</x>
+      <y>588</y>
+      <w>300</w>
+      <h>72</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.controller::ScheduleController
+--
+~service: ScheduleService
+--
++getAllSchedule(Pageable pageable): ResponseEntity&lt;?&gt;
++getScheduleByID(@PathParam(value = "id") UUID id): ResponseEntity&lt;?&gt;
++getScheduleByDateRance(Pageable pageable, @RequestBody DateRangeDTO dateRange): ResponseEntity&lt;?&gt;
++getActiveSchedule(Pageable pageable): ResponseEntity&lt;?&gt;
++importXLSX(@RequestParam("file") MultipartFile file): ResponseEntity&lt;String&gt;
++exportXLSX(): ResponseEntity&lt;InputStreamResource&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>120</y>
+      <w>84</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.model::Film
+--
+-id: UUID
+-ISBN: long
+-title: String
+-releaseDate: LocalDate
+-image: String
+--
++dateValidation(): Boolean
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>120</y>
+      <w>96</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.model::Schedule
+--
+-id: UUID
+-film: Film
+-startDate: LocalDate
+-endDate: LocalDate
+-cinema: Cinema
+--
++getDuration(): long
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>444</x>
+      <y>204</y>
+      <w>84</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.model::User
+--
+-id: UUID
+-name: String
+-surname: String
+-username: String
+-email: String
+-password: String
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>988</x>
+      <y>368</y>
+      <w>140</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.service::AuthService
+--
+-authenticationManager: AuthenticationManager
+-jwtTokenProvider: JwtProvider
+-custUserDetailsService: CustomUserDetailService
+--
++AuthService(AuthenticationManager authenticationManager, JwtProvider jwtTokenProvider, CustomUserDetailService custUserDetailsService): ctor
++login(LoginDTO loginDto): String
++refreshToken(String oldToken): String
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>124</y>
+      <w>92</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.model::Cinema
+--
+-id: UUID
+-cinemaNo: int
+-capacity: int
+-tech: CinemaTech
+--
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>740</x>
+      <y>588</y>
+      <w>192</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.controller::CinemaController
+--
+~service: CinemaService
+--
++getAllCinemas(Pageable pageable): ResponseEntity&lt;?&gt;
++getCinemaByID(@PathParam(value = "id") UUID id): ResponseEntity&lt;?&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>184</x>
+      <y>620</y>
+      <w>184</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.controller::FilmController
+--
+~service: FilmService
+--
++getAllFilms(Pageable pageable): ResponseEntity&lt;?&gt;
++getFilmByID(@PathParam(value = "id") UUID id): ResponseEntity&lt;?&gt;
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>540</y>
+      <w>144</w>
+      <h>36</h>
+    </coordinates>
+    <panel_attributes>org.vm93.cinemille.controller::PublicFacingController
+--
+~service: ScheduleService
+--
++getSchedule(Pageable pageable): ResponseEntity&lt;?&gt;
+--
+
+bg=RED</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>532</x>
+      <y>144</y>
+      <w>44</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=n
+m2=1</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>144</y>
+      <w>48</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=n</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1060</x>
+      <y>428</y>
+      <w>12</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;400.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>484</x>
+      <y>460</y>
+      <w>12</w>
+      <h>136</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;320.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>440</y>
+      <w>12</w>
+      <h>188</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;450.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>460</y>
+      <w>12</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>832</x>
+      <y>444</y>
+      <w>12</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;360.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>568</x>
+      <y>524</y>
+      <w>40</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Public Access
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>260</x>
+      <y>92</y>
+      <w>468</w>
+      <h>208</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>164</x>
+      <y>328</y>
+      <w>1016</w>
+      <h>164</h>
+    </coordinates>
+    <panel_attributes>Service
+--
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>164</x>
+      <y>508</y>
+      <w>1056</w>
+      <h>228</h>
+    </coordinates>
+    <panel_attributes>Controller
+--
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>684</x>
+      <y>744</y>
+      <w>136</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Cinemille v1.0.0 - Vincenzo Maiorana
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
