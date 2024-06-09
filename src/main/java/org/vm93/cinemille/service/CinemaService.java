@@ -35,7 +35,7 @@ public class CinemaService {
 	}
 	
 	public Cinema addCinema(Cinema cinema) {
-		if (!cinemaRepo.findByCinemaNo(cinema.getCinemaNo()).isPresent())
+		if (cinemaRepo.findByCinemaNo(cinema.getCinemaNo()).isPresent())
 			throw new EntityExistsException("CinemaNo already exists!");
 		cinemaRepo.save(cinema);
 		return cinema;

@@ -28,7 +28,7 @@ public class FilmService {
 	private FilmRepo repo;
 
 	public Film addFilm(Film film) {
-		if (!repo.findByISBN(film.getISBN()).isPresent())
+		if (repo.findByISBN(film.getISBN()).isPresent())
 			throw new EntityExistsException("Film ISBN already exists!");
 		repo.save(film);
 		return film;
