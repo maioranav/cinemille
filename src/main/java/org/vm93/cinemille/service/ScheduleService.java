@@ -104,7 +104,7 @@ public class ScheduleService {
                 long isbn = (long) row.getCell(0).getNumericCellValue();
                 String titolo = row.getCell(1).getStringCellValue();
                 String image = row.getCell(2).getStringCellValue();
-                int salaName = (int)row.getCell(3).getNumericCellValue();
+                int salaName = (int) row.getCell(3).getNumericCellValue();
                 LocalDate startDate = LocalDate.from(row.getCell(4).getLocalDateTimeCellValue());
                 LocalDate endDate = LocalDate.from(row.getCell(5).getLocalDateTimeCellValue());
 

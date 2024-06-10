@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.vm93.cinemille.payload.DateRangeDTO;
 import org.vm93.cinemille.service.ScheduleService;
-
-import jakarta.websocket.server.PathParam;
 
 @CrossOrigin(origins = "*", maxAge = 360000)
 @RestController
@@ -44,6 +43,12 @@ public class ScheduleController {
 	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<?> getScheduleByID(@PathVariable(name = "id") UUID id) {
 		return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{id}")
+	@PreAuthorize("isAuthenticated()")
+	public ResponseEntity<?> deleteScheduleByID(@PathVariable(name = "id") UUID id){
+		return new ResponseEntity<>(service.removeShow(id), HttpStatus.OK);
 	}
 	
 	@PostMapping("/range")
